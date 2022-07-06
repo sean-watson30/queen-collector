@@ -25,3 +25,7 @@ def about(request):
 def queens_index(request):
   queens = Queen.objects.all()
   return render(request, 'queens/index.html', { 'queens': queens })
+
+def queens_detail(request, queen_id):
+  queen = Queen.objects.get(id=queen_id)
+  return render(request, 'queens/detail.html', { 'queen': queen })

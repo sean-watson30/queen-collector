@@ -4,16 +4,18 @@
 
 {% for queen in queens %}
 <div class="card">
-  <div class="card-content">
-    <span class="card-title">{{ queen.name }}</span>
-    <p>Season: {{ queen.season }}</p>
-    <p>Description: {{ queen.description }}</p>
-    {% if queen.winner == True %}
-    <p>👑</p>
-    {% else %}
-    <p>(no wins yet)</p>
-    {% endif %}
-  </div>
+  <a href="{% url 'detail' queen.id %}">
+    <div class="card-content">
+      <span class="card-title">{{ queen.name }}</span>
+      <p>Season: {{ queen.season }}</p>
+      <p>Description: {{ queen.description }}</p>
+      {% if queen.winner == True %}
+      <p>👑</p>
+      {% else %}
+      <p>(no wins yet)</p>
+      {% endif %}
+    </div>
+  </a>
 </div>
 
 {% endfor %} {% endblock %}
