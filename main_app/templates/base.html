@@ -26,8 +26,12 @@
             </li>
           </ul>
           <ul class="right">
-            <li><a href="/about">About</a></li>
-            <li><a href="/queens">Bring Back My Girls</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <!-- new link below -->
+            <li><a href="{% url 'queens_create' %}">Add a Queen</a></li>
+            <li><a href="{% url 'index' %}">Bring Back My Girls</a></li>
+            <!-- <li><a href="/about">About</a></li>
+            <li><a href="/queens">Bring Back My Girls</a></li> -->
           </ul>
         </div>
       </nav>

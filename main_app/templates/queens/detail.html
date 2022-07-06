@@ -13,6 +13,10 @@
     <p>(no wins yet)</p>
     {% endif %}
   </div>
+  <div class="card-action">
+    <a href="{% url 'queens_update' queen.id %}">Edit</a>
+    <a href="{% url 'queens_delete' queen.id %}">Delete</a>
+  </div>
 </div>
 
 {% endblock %}

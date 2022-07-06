@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Queen
 
 # Create your views here.
@@ -29,3 +30,17 @@ def queens_index(request):
 def queens_detail(request, queen_id):
   queen = Queen.objects.get(id=queen_id)
   return render(request, 'queens/detail.html', { 'queen': queen })
+
+class QueenCreate(CreateView):
+  model = Queen
+  fields = '__all__'
+  success_url = '/queens'
+
+class QueenUpdate(UpdateView):
+  model = Queen
+  fields = ['season', 'description']
+# add 'winner' above?
+
+class QueenDelete(DeleteView):
+  model = Queen
+  success_url = '/queens/'
