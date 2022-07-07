@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Queen, Category
+from .models import Queen, Category, Photo
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from .forms import LipSyncsForm
+import uuid
+import boto3
 
+S3_BASE_URL = 'https://s3-us-east-1.amazonaws.com/' # or whatever region you used
+BUCKET = ''
 # Create your views here.
 def home(request):
   return render(request, 'home.html')
@@ -58,6 +62,20 @@ def assoc_category_delete(request, queen_id, category_id):
   Queen.objects.get(id=queen_id).category.remove(category_id)
   return redirect('detail', queen_id=queen_id)
   
+def add_photo(request, queen_id):
+  photo_file = request.FILES.get('photo-file', None)
+  if photo_file:
+    s3 =boto3.client('s3')
+    key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+    try:
+      s3.upload_fileobj(photo_file, BUCKET, key)
+      url = f"{S3_BASE_URL}{BUCKET}/{key}"
+      photo = Photo(url=url, queen_id=queen_id)
+      photo.save()
+    except Exception as error:
+      print('An error occurred uploading file to s3', error)
+      return redirect('detail', queen_id=queen_id)
+  return redirect('detail', queen_id=queen_id)
 
 class QueenCreate(CreateView):
   model = Queen

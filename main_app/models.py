@@ -31,3 +31,9 @@ class LipSyncs(models.Model):
 
   def __str__(self):
     return f"She lip synced for her life to: {self.song}"
+
+class Photo(models.Model):
+  url = models.CharField(max_length=200)
+  queen = models.ForeignKey(Queen, on_delete=models.CASCADE)
+  def __str__(self):
+    return f"Photo for queen_id: {self.queen_id} @ this url: {self.url}"

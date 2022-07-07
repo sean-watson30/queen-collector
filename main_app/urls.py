@@ -10,6 +10,8 @@ urlpatterns = [
   path('queens/<int:pk>/update', views.QueenUpdate.as_view(), name='queens_update'),
   path('queens/<int:pk>/delete', views.QueenDelete.as_view(), name='queens_delete'),
   path('queens/<int:queen_id>/add_lipsync/', views.add_lipsync, name='add_lipsync'),
+  # adding photo url path
+  path('queens/<int:queen_id>/add_photo/', views.add_photo, name='add_photo'),
 # associated links go here
   path('category/', views.CategoryList.as_view(), name='category_index'),
   path('category/<int:pk>/', views.CategoryDetail.as_view(), name='category_detail'),

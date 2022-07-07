@@ -48,6 +48,46 @@
     </table>
   </div>
 </div>
-
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ queen.name }} 's Runway Categories Walked</h3>
+    {% if queen.category.count %} {% for walk in queen.category.all %}
+    <div class="card">
+      <div class="card-content">
+        {{ walk.name }}
+      </div>
+      <div class="card-action">
+        <form action="{% url assoc_category_delete queen.id category.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn red">Remove</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %} {% else %} 
+    <h5>She hasn't walked any categories yet.</h5>
+    {% endif %}
+  </div>
+</div>
+<div class="col s6">
+  <h3>Catgories Available to Walk</h3>
+  {% if category.count %} {% for walk in category.all %}
+  <div class="card">
+    <div class="card-content">
+      {{ walk.name }}
+    </div>
+    <div class="card-action">
+      <form action="{% url assoc_category queen.id category.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn">Walk the Runway!</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %} {% else %}
+  <h5>{{ queen.name }} has already walked all categories.</h5>
+  {% endif %}
+</div>
 
 {% endblock %}
+
+<!-- Add all the show code for Category in this file as well -->
