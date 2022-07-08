@@ -72,17 +72,17 @@
 </div>
 <!-- line break in page -->
 <hr>
+<!-- Runway Categories Section -->
 <div class="row">
-  <!-- Runway Categories Section -->
   <div class="col s6">
-    <h3>{{ queen.name }} 's Runway Categories Walked</h3>
-    {% if queen.category.count %} {% for walk in queen.category.all %}
+    <h3>{{ queen.name }}'s Runway Categories Walked</h3>
+    {% if queen.category.count %} {% for category in queen.category.all %}
     <div class="card">
       <div class="card-content">
-        {{ walk.name }}
+        <span class="card-title">{{ category.name }}</span>
       </div>
       <div class="card-action">
-        <form action="{% url assoc_category_delete queen.id category.id %}" method="post">
+        <form action="{% url 'assoc_category_delete' queen.id category.id %}" method="post">
           {% csrf_token %}
           <button type="submit" class="btn red">Remove</button>
         </form>
@@ -94,13 +94,14 @@
   </div>
   <div class="col s6">
     <h3>Catgories Available to Walk</h3>
-    {% if category.count %} {% for walk in category.all %}
+    {% if category.count %} {% for category in category.all %}
     <div class="card">
       <div class="card-content">
-        {{ walk.name }}
+        <span class="card-title"> {{ category.name }}
+        </span>
       </div>
       <div class="card-action">
-        <form action="{% url assoc_category queen.id category.id %}" method="post">
+        <form action="{% url 'assoc_category' queen.id category.id %}" method="post">
           {% csrf_token %}
           <button type="submit" class="btn">Walk the Runway!</button>
         </form>

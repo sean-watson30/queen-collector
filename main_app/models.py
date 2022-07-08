@@ -8,7 +8,7 @@ class Category(models.Model):
   def __str__(self):
     return f'{self.name}'
   def get_absolute_url(self):
-    return reverse('category_detail', kwargs={ 'pk': self.id })
+    return reverse('category_detail', kwargs={'pk': self.id})
 
 class Queen(models.Model):
   name = models.CharField(max_length=100)

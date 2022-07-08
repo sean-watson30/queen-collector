@@ -8,6 +8,9 @@ body {
   min-height: 100vh;
   flex-direction: column;
   background-color: pink;
+  /* background-image: url(https://pbs.twimg.com/media/EUYZE8qXsAMnDaH?format=jpg&name=large);
+  background-repeat: no-repeat;
+  background-position: center; */
 }
 
 main {

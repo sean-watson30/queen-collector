@@ -10,6 +10,7 @@ import boto3
 
 S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/' # or whatever region you used
 BUCKET = ''
+
 # Create your views here.
 def home(request):
   return render(request, 'home.html')
@@ -36,24 +37,22 @@ def queens_index(request):
 
 def queens_detail(request, queen_id):
   queen = Queen.objects.get(id=queen_id)
+  not_walked = Category.objects.exclude(id__in = queen.category.all().values_list('id'))
   lipsyncs_form = LipSyncsForm()
   return render(request, 'queens/detail.html', {
-    'queen': queen, 'lipsyncs_form': lipsyncs_form
+    'queen': queen, 'lipsyncs_form': lipsyncs_form, 'walks': not_walked
   })
+  # need to change naming here?
 
 def add_lipsync(request, queen_id):
-  # create the ModelForm using the data in request.POST
   form = LipSyncsForm(request.POST)
-  # validate the form
   if form.is_valid():
-    # don't save the form to the db until it
-    # has the cat_id assigned
     new_lipsync = form.save(commit=False)
     new_lipsync.queen_id = queen_id
     new_lipsync.save()
   return redirect('detail', queen_id=queen_id)
-  # return render(request, 'queens/detail.html', { 'queen': queen })
 
+# ___________ Many to Many Associations ___________
 def assoc_category(request, queen_id, category_id):
   Queen.objects.get(id=queen_id).category.add(category_id)
   return redirect('detail', queen_id=queen_id)
@@ -62,6 +61,7 @@ def assoc_category_delete(request, queen_id, category_id):
   Queen.objects.get(id=queen_id).category.remove(category_id)
   return redirect('detail', queen_id=queen_id)
   
+# ___________ Photo Handling ___________  
 def add_photo(request, queen_id):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
@@ -77,10 +77,11 @@ def add_photo(request, queen_id):
       return redirect('detail', queen_id=queen_id)
   return redirect('detail', queen_id=queen_id)
 
+# ___________ Class Declarations / Queen ___________
 class QueenCreate(CreateView):
   model = Queen
   fields = '__all__'
-  success_url = '/queens'
+  success_url = '/queens/'
 
 class QueenUpdate(UpdateView):
   model = Queen
@@ -90,6 +91,8 @@ class QueenUpdate(UpdateView):
 class QueenDelete(DeleteView):
   model = Queen
   success_url = '/queens/'
+
+# ___________ Class Declarations / Category ___________
 
 class CategoryList(ListView):
   model = Category
@@ -102,7 +105,7 @@ class CategoryDetail(DetailView):
 class CategoryCreate(CreateView):
   model = Category
   fields = ['name']
-  success_url = '/category'
+  success_url = '/category/'
 
 class CategoryUpdate(UpdateView):
   model = Category
