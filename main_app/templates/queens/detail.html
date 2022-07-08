@@ -94,7 +94,7 @@
   </div>
   <div class="col s6">
     <h3>Catgories Available to Walk</h3>
-    {% if category.count %} {% for category in category.all %}
+    {% if walks.count %} {% for category in walks.all %}
     <div class="card">
       <div class="card-content">
         <span class="card-title"> {{ category.name }}
