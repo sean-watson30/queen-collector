@@ -110,7 +110,8 @@ def signup(request):
 # ___________ Class Declarations / Queen ___________
 class QueenCreate(LoginRequiredMixin, CreateView):
   model = Queen
-  fields = '__all__'
+  # fields = '__all__'
+  fields = ['name', 'season', 'description']
   success_url = '/queens/'
   def form_valid(self, form):
     form.instance.user = self.request.user
