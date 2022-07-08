@@ -7,8 +7,8 @@
 
 <form action="" method="POST">
   {% csrf_token %}
-  <input type="submit" value="Sashay Away!" class="btn">
-  <a href="{% url 'detail' queen.id %}">Shantay, you stay!</a>
+  <input class="btn red" type="submit" value="Sashay Away!">
+  <a class="btn blue" href="{% url 'detail' queen.id %}">Shantay, you stay!</a>
 </form>
 
 {% endblock %}

@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RUPaul's Drag Race Queens</title>
+    <title>RuPaul's Drag Race Queens</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
@@ -28,11 +28,10 @@
           </ul>
           <ul class="right">
             <li><a href="{% url 'about' %}">About</a></li>
-            <!-- new link below -->
             <li><a href="{% url 'queens_create' %}">Add a Queen</a></li>
             <li><a href="{% url 'index' %}">Bring Back My Girls</a></li>
-            <!-- <li><a href="/about">About</a></li>
-            <li><a href="/queens">Bring Back My Girls</a></li> -->
+            <li><a href="{% url 'category_index' %}">What Category Are We On Right Now?</a></li>
+            <li><a href="{% url 'category_create' %}">Category Is...</a></li>
           </ul>
         </div>
       </nav>

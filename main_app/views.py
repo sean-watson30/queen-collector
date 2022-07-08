@@ -8,7 +8,7 @@ from .forms import LipSyncsForm
 import uuid
 import boto3
 
-S3_BASE_URL = 'https://s3-us-east-1.amazonaws.com/' # or whatever region you used
+S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/' # or whatever region you used
 BUCKET = ''
 # Create your views here.
 def home(request):
@@ -102,6 +102,7 @@ class CategoryDetail(DetailView):
 class CategoryCreate(CreateView):
   model = Category
   fields = ['name']
+  success_url = '/category'
 
 class CategoryUpdate(UpdateView):
   model = Category
@@ -109,4 +110,4 @@ class CategoryUpdate(UpdateView):
 
 class CategoryDelete(DeleteView):
   model = Category
-  aucess_url = '/category/'
+  success_url = '/category/'

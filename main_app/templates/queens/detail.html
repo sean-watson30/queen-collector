@@ -6,21 +6,43 @@
   <div class="col s5">
     <div class="card">
       <div class="card-content">
+        <!-- display a queen's info -->
         <span class="card-title">{{ queen.name }}</span>
         <p>Season: {{ queen.season }}</p>
         <p>Description: {{ queen.description }}</p>
-        {% if queen.winner == True %}
+        <!-- {% if queen.winner == True %}
         <p>👑</p>
         {% else %}
         <p>(no wins yet)</p>
-        {% endif %}
+        {% endif %} -->
       </div>
+      <!-- edit and delete a queen -->
       <div class="card-action">
         <a href="{% url 'queens_update' queen.id %}">Edit</a>
         <a href="{% url 'queens_delete' queen.id %}">Delete</a>
       </div>
     </div>
+    <!-- photos of queens -->
+    {% for photo in queen.photo_set.all %}
+      <img class="responsive-img card-panel" src="{{ photo.url }}" alt="{{ queen.name }}">
+    {% empty %}
+      <div class="card-panel teal-text center-align">No Snapshots Taken</div>
+    {% endfor %}
+    <form 
+      action="{% url 'add_photo' queen.id %}"
+      class="card-panel"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <input type="file" name="photo-file" />
+      <br>
+      <br>
+      <input type="submit" class="btn" value="Snapshot!" />
+    </form>
   </div>
+
+  <!-- Lipsync section -->
   <div class="col s7">
     <form action="{% url 'add_lipsync' queen.id %}" method="post">
       {% csrf_token %} {{ lipsyncs_form.as_p }}
@@ -48,8 +70,10 @@
     </table>
   </div>
 </div>
+<!-- line break in page -->
 <hr>
 <div class="row">
+  <!-- Runway Categories Section -->
   <div class="col s6">
     <h3>{{ queen.name }} 's Runway Categories Walked</h3>
     {% if queen.category.count %} {% for walk in queen.category.all %}
@@ -68,24 +92,24 @@
     <h5>She hasn't walked any categories yet.</h5>
     {% endif %}
   </div>
-</div>
-<div class="col s6">
-  <h3>Catgories Available to Walk</h3>
-  {% if category.count %} {% for walk in category.all %}
-  <div class="card">
-    <div class="card-content">
-      {{ walk.name }}
+  <div class="col s6">
+    <h3>Catgories Available to Walk</h3>
+    {% if category.count %} {% for walk in category.all %}
+    <div class="card">
+      <div class="card-content">
+        {{ walk.name }}
+      </div>
+      <div class="card-action">
+        <form action="{% url assoc_category queen.id category.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn">Walk the Runway!</button>
+        </form>
+      </div>
     </div>
-    <div class="card-action">
-      <form action="{% url assoc_category queen.id category.id %}" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn">Walk the Runway!</button>
-      </form>
-    </div>
+    {% endfor %} {% else %}
+    <h5>{{ queen.name }} has already walked all categories.</h5>
+    {% endif %}
   </div>
-  {% endfor %} {% else %}
-  <h5>{{ queen.name }} has already walked all categories.</h5>
-  {% endif %}
 </div>
 
 {% endblock %}
