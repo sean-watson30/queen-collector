@@ -7,10 +7,12 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  background-color: pink;
-  /* background-image: url(https://pbs.twimg.com/media/EUYZE8qXsAMnDaH?format=jpg&name=large);
+  background-color: #880e4f;
+  background-image: url(https://pbs.twimg.com/media/EUYZE8qXsAMnDaH?format=jpg&name=large);
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position: center; */
+  background-position: center;
+  overflow-y: scroll;
 }
 
 main {
