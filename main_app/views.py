@@ -13,7 +13,7 @@ import uuid
 import boto3
 
 S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/' # or whatever region you used
-BUCKET = ''
+BUCKET = 'queencollector-sw'
 
 # Create your views here.
 def home(request):
